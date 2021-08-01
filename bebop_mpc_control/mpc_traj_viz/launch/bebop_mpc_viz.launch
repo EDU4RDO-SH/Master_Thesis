@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+		<!-- RViz -->
+		<node pkg="mpc_traj_viz" type="mpc_traj_viz" name="mpc_traj_viz_node" output="screen">
+			<remap from="/command/current_reference" to="/bebop/command/current_reference" /> 
+			<remap from="/odometry" to="/bebop/odometry" />
+		</node> 
+
+		<node pkg="rviz" type="rviz" name="rviz" args="-d $(find mpc_traj_viz)/rviz/bebop_config.rviz"/>	
+
+
+</launch>

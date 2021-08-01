@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="mav_name" default="bebop" />
+  <arg name="namespace" default="$(arg mav_name)"/>
+
+  <group ns="$(arg namespace)">
+
+
+		<!-- Run MPC controller -->
+    <node pkg="bebop_linear_mpc" type="bebop_linear_mpc_node" name="bebop_linear_mpc_node" respawn="true" clear_params="true" output="screen">
+      <remap from="odometry" to="odometry" />
+      <rosparam file="$(find bebop_linear_mpc)/resources/linear_mpc_$(arg mav_name).yaml" />
+      <rosparam file="$(find bebop_disturbance_observer)/resources/disturbance_observer_$(arg mav_name).yaml"/>
+      <param name="verbose" value="true" />
+      <param name="use_rc_teleop" value="false" />
+      <param name="reference_frame" value="world" />
+    </node>
+
+
+		<!-- Run bebop odometry republisher -->
+		<node pkg="bebop_odometry_republisher" type="bebop_odometry" name="bebop_odometry_node" output="screen">
+			<remap from="bebop/odometry" to="odometry" /> 	 
+		</node>
+
+
+		<!-- Launch the trajectory generator -->
+		<node pkg="bebop_linear_mpc" type="bebop_waypoint_publisher" name="bebop_waypoint_publisher_node" 
+					output="screen" args="$(find bebop_linear_mpc)/resources/waypoints_square_10x10.txt"/>   
+
+	
+		<!-- control inputs normalizer -->			
+		<node pkg="control_inputs_normalizer" type="control_inputs_normalizer" name="control_inputs_normalizer_node" output="screen">
+			<rosparam file="$(find control_inputs_normalizer)/params/$(arg mav_name)_scaling_parameters.yaml" command="load" />
+			<remap from="/cmd_vel" to="/bebop/cmd_vel"/> 	 
+		</node>
+					 
+
+		<!-- publish errors -->
+		<node pkg="errors_publisher" type="errors_publisher" name="errors_publisher_node" output="screen"/>	
+
+
+  </group>
+
+</launch>

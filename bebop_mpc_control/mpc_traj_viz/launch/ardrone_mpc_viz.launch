@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+		<!-- RViz -->
+		<node pkg="mpc_traj_viz" type="mpc_traj_viz" name="mpc_traj_viz_node" output="screen">
+			<remap from="/command/current_reference" to="/ardrone/command/current_reference" /> 
+			<remap from="/odometry" to="/ardrone/odometry" />
+		</node> 
+
+		<node pkg="rviz" type="rviz" name="rviz" args="-d $(find mpc_traj_viz)/rviz/ardrone_config.rviz"/>
+
+
+</launch>

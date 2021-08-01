@@ -1,0 +1,5 @@
+# scaling parameters for ardrone
+
+max_tilt_angle: 12.0 # [deg]	
+max_vert_speed: 0.5 # [m/sec]
+max_rot_speed: 58.0 # [deg/sec]

@@ -1,0 +1,5 @@
+# scaling parameters for bebop
+
+max_tilt_angle: 20.0 # [deg]	
+max_vert_speed: 1.0 # [m/sec]
+max_rot_speed: 100.0 # [deg/sec]

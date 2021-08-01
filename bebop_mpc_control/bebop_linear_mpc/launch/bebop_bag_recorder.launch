@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="mav_name" default="bebop" />
+
+	<!-- Record bag files -->
+	<arg name="topics" default="/$(arg mav_name)/command/current_reference /$(arg mav_name)/odometry /$(arg mav_name)/state_errors /$(arg mav_name)/command/roll_pitch_yawrate_thrust" />
+	<node pkg="rosbag" type="record" name="bag_recorder" args="-o $(find bebop_linear_mpc)/bagfiles/$(arg mav_name)/$(arg mav_name)-mpc $(arg topics)"/>	
+
+</launch>

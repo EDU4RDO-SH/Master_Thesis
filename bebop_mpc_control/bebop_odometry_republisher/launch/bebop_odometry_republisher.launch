@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="mav_name" default="bebop" />
+  <arg name="namespace" default="$(arg mav_name)"/>
+
+  <group ns="$(arg namespace)">
+
+		<!-- Run bebop odometry republisher -->
+		<node pkg="bebop_odometry_republisher" type="bebop_odometry" name="bebop_odometry_node" output="screen">
+			<remap from="bebop/odometry" to="odometry" /> 	 
+		</node>
+
+  </group>
+
+</launch>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+	<node pkg="control_inputs_normalizer" type="control_inputs_normalizer" name="control_inputs_normalizer_node" output="screen">
+		<rosparam file="$(find control_inputs_normalizer)/params/bebop_scaling_parameters.yaml" command="load" />
+		<remap from="/cmd_vel" to="/cmd_vel" /> 	 
+	</node>	
+
+</launch>
